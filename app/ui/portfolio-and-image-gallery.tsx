@@ -234,8 +234,12 @@ export const RadialScrollGallery = forwardRef<
       : 150;
 
     const visibleAreaHeight = childSize
-      ? circleDiameter * visibleDecimal + childSize.h / 2 + calculatedBuffer
-      : circleDiameter * visibleDecimal + 200;
+      ? (
+          circleDiameter * visibleDecimal +
+          childSize.h / 2 +
+          calculatedBuffer
+        ).toFixed(3)
+      : (circleDiameter * visibleDecimal + 200).toFixed(3);
 
     return (
       <div
@@ -265,19 +269,19 @@ export const RadialScrollGallery = forwardRef<
             style={{
               width: circleDiameter,
               height: circleDiameter,
-              bottom: -(circleDiameter * hiddenDecimal),
+              bottom: -(circleDiameter * hiddenDecimal).toFixed(3),
             }}
           >
             {childrenNodes.map((child, index) => {
               const angle = (index / childrenCount) * 2 * Math.PI;
-              let x = currentRadius * Math.cos(angle);
-              const y = currentRadius * Math.sin(angle);
+              const x = (currentRadius * Math.cos(angle)).toFixed(3);
+              const y = (currentRadius * Math.sin(angle)).toFixed(3);
 
               if (direction === "rtl") {
-                x = -x;
+                // Not actually needed since we use toFixed above, but keeping logic
               }
 
-              const rotationAngle = (angle * 180) / Math.PI;
+              const rotationAngle = ((angle * 180) / Math.PI).toFixed(3);
               const isHovered = hoveredIndex === index;
               const isAnyHovered = hoveredIndex !== null;
 
@@ -286,11 +290,12 @@ export const RadialScrollGallery = forwardRef<
                   key={index}
                   ref={index === 0 ? childRef : null}
                   className="absolute top-1/2 left-1/2"
+                  suppressHydrationWarning
                   style={{
                     zIndex: isHovered ? 100 : 10,
-                    transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0) rotate(${
-                      rotationAngle + 90
-                    }deg)`,
+                    transform: `translate(-50%, -50%) translate3d(${
+                      direction === "rtl" ? -Number(x) : x
+                    }px, ${y}px, 0) rotate(${Number(rotationAngle) + 90}deg)`,
                   }}
                 >
                   {/* 
