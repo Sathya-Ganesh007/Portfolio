@@ -169,7 +169,16 @@ export const RadialScrollGallery = forwardRef<
       });
 
       observer.observe(childRef.current);
-      return () => observer.disconnect();
+      
+      // Force refresh on mount to account for initial layout
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+
+      return () => {
+        observer.disconnect();
+        clearTimeout(timer);
+      };
     }, [childrenCount]);
 
     useGSAP(

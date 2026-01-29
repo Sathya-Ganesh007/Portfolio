@@ -40,7 +40,7 @@ const projects = [
 
 export default function Hero() {
   return (
-    <div className="bg-background min-h-[600px] text-foreground overflow-hidden rounded-lg border w-full">
+    <div className="bg-background min-h-[600px] text-foreground rounded-lg border w-full">
       <div className="h-[300px] flex flex-col items-center justify-center space-y-4 pt-8">
         <div className="space-y-1 text-center">
           <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
