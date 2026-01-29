@@ -46,7 +46,7 @@ export default function Hero() {
           <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
             Portfolio
           </span>
-          <h1 className="text-4xl font-bold tracking-tighter">Work</h1>
+          <h1 className="text-4xl font-bold tracking-tighter">Coming Soon</h1>
         </div>
         <div className="animate-bounce text-muted-foreground text-xs">
           ↓ Scroll
