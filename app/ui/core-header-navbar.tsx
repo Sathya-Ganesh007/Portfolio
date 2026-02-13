@@ -49,10 +49,7 @@ export function SimpleNavbar({
         </div>
         <div className="size-10 border rounded-full overflow-hidden p-0.5 bg-background">
           <img
-            src={
-              userImage ||
-              "https://m.media-amazon.com/images/I/31sDQI7yfDL._AC_UF894,1000_QL80_.jpg"
-            }
+            src="/ganesh.png.png"
             alt="profile"
             className="size-full rounded-full object-cover"
           />
