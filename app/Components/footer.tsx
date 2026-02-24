@@ -1,36 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 export default function Footer() {
   return (
-    <footer className="py-20 px-10 border-t border-white/5 bg-black">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-        <div className="space-y-4">
-          <div className="w-10 h-6">
-            <svg viewBox="0 0 100 50" className="w-full h-full text-white fill-current">
-                <path d="M25,10 C15,10 5,20 5,30 C5,40 15,50 25,50 C35,50 45,40 55,30 C65,20 75,10 85,10 C95,10 105,20 105,30 C105,40 95,50 85,50 C75,50 65,40 55,30 C45,20 35,10 25,10 Z" fill="none" stroke="currentColor" strokeWidth="8" />
-            </svg>
+    <footer className="relative py-20 px-10 bg-black overflow-hidden">
+      <div className="max-w-7xl mx-auto border-t border-white/5 pt-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 relative z-10">
+          <div className="space-y-4">
+            <p className="text-[12px] text-white/20 font-black uppercase tracking-[0.2em] font-mono">
+              © {new Date().getFullYear()} AETHER STUDIO / ALL RIGHTS RESERVED
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground font-light max-w-xs leading-relaxed">
-            Elevating digital experiences through exceptional design and precision engineering.
-          </p>
-        </div>
 
-        <div className="flex gap-10">
-           {["Privacy", "Terms", "Instagram", "Twitter"].map((link) => (
-             <a key={link} href="#" className="text-xs font-bold uppercase tracking-widest text-white/40 hover:text-white transition-colors">
-                {link}
-             </a>
-           ))}
+          <div className="text-[12px] text-white/20 font-black uppercase tracking-[0.3em] font-mono">
+            CHENNAI — TOKYO — NEW YORK
+          </div>
         </div>
       </div>
-      
-      <div className="max-w-6xl mx-auto mt-20 pt-10 border-t border-white/5 text-center">
-         <p className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold">
-            &copy; {new Date().getFullYear()} Landin Agency. All Rights Reserved.
-         </p>
+
+
+      {/* Large background text */}
+      <div className="absolute bottom-[-10%] left-0 right-0 pointer-events-none select-none opacity-[0.03] flex justify-center">
+         <h2 className="text-[25vw] font-black tracking-tighter text-white whitespace-nowrap leading-none">
+            AETHER
+         </h2>
       </div>
     </footer>
   );
 }
+
+

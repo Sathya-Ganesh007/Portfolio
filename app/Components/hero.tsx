@@ -1,92 +1,101 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen pt-32 pb-20 flex flex-col items-start px-10 overflow-hidden">
-      {/* Background Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] -z-10 animate-glow" />
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden bg-black">
+      {/* Subtle Background Elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       
-      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-        <div className="space-y-10">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3 glass-card px-4 py-2 rounded-full w-fit"
-          >
-            <span className="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded leading-none">NEW</span>
-            <span className="text-xs font-medium text-white/80 tracking-tight">No. 1 Studio of 2025</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-7xl md:text-8xl font-medium tracking-tight leading-[0.9] text-white"
-          >
-            Ganesh V <br />
-            <span className="text-white/60">Developer</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg text-muted-foreground font-light max-w-md leading-relaxed"
-          >
-            We specialize in crafting unique digital presence that help businesses grow and stand out in their industries.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex items-center gap-4"
-          >
-            <button className="px-8 py-4 bg-white text-black font-bold rounded-xl hover:opacity-90 transition-opacity">
-              Connect With Us
-            </button>
-            <button className="px-8 py-4 glass-card text-white font-bold rounded-xl hover:bg-white/5 transition-colors">
-              What is Landin?
-            </button>
-          </motion.div>
-        </div>
+      <div className="max-w-6xl w-full mx-auto text-center space-y-10 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex justify-center"
+        >
+          <div className="flex items-center gap-2 px-4 py-1.5 border border-white/5 bg-white/[0.03] backdrop-blur-md">
+             <div className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] animate-pulse" />
+             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 font-mono">Available for projects</span>
+          </div>
+        </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative aspect-video rounded-3xl overflow-hidden glass-card group cursor-pointer"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-8"
         >
-          <img 
-            src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1200&auto=format&fit=crop" 
-            alt="Showcase"
-            className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-             <div className="w-16 h-16 bg-white flex items-center justify-center rounded-full shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-transform group-hover:scale-110">
-                <Play className="fill-black text-black ml-1 w-6 h-6" />
-             </div>
-          </div>
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent" />
-          <div className="absolute bottom-6 left-6 right-6">
-             <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
-                <span className="text-xs font-bold text-white uppercase tracking-widest">Live Experience</span>
-             </div>
-          </div>
+          <h1 className="text-[12vw] md:text-[15rem] font-black tracking-tighter leading-[0.75] flex flex-col items-center select-none uppercase">
+            <span className="text-white">DIGITAL</span>
+            <span className="text-transparent" style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.1)" }}>ALCHEMY</span>
+          </h1>
+          
+          <p className="max-w-lg mx-auto text-[14px] md:text-[16px] text-white/40 font-medium leading-relaxed font-mono uppercase tracking-widest pt-4">
+            We craft immersive digital experiences for forward-thinking brands.
+          </p>
+        </motion.div>
+
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-col items-center"
+        >
+          <button className="group flex items-center gap-3 px-10 py-4 bg-white text-black text-[14px] font-bold uppercase tracking-[0.1em] transition-all hover:bg-[#CCFF00] font-mono">
+            <span>View Selected Works</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
         </motion.div>
       </div>
 
-      <div className="w-full mt-32 max-w-6xl mx-auto opacity-30">
-        <div className="flex flex-wrap justify-between items-center gap-10 grayscale brightness-200">
-           {["LOGO", "IPSUM", "VOLUM", "BRAND"].map((text) => (
-             <span key={text} className="text-2xl font-black italic tracking-tighter">{text}</span>
-           ))}
-        </div>
+      {/* Floating Abstract Image */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 0.6, scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[70%] max-w-5xl aspect-square z-0 pointer-events-none"
+      >
+        <motion.img
+          src="/hero-abstract.png"
+          alt="Abstract Art"
+          className="w-full h-full object-contain filter blur-[20px] md:blur-[40px]"
+          animate={{ 
+            rotate: [0, 5, -5, 0],
+            scale: [1, 1.05, 0.95, 1],
+          }}
+          transition={{ 
+            duration: 20, 
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+        />
+      </motion.div>
+
+      {/* Floating abstract elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-10">
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/5 rounded-full animate-[spin_20s_linear_infinite]" />
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
       </div>
+
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="absolute bottom-10 left-10 flex items-center gap-2"
+      >
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 font-mono">SCROLL</span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ArrowRight className="w-3 h-3 text-white/40 rotate-90" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

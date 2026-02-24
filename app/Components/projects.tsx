@@ -1,125 +1,107 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const results = [
-  // {
-  //   city: "Job Management",
-  //   company: "Full Stack App",
-  //   tag: "SUPABASE",
-  //   desc: "Built a centralized platform with third-party integrations and scalable architecture.",
-  //   stats: ["Node.js", "REST APIs", "Postman"],
-  //   img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=800&auto=format&fit=crop"
-  // },
+const selectedWorks = [
   {
-    city: "Auditly360",
-    company: "Performance Platform",
-    tag: "AI POWERED",
-    desc: "frontend Developer of AI-powered website audit system with optimized performance.",
-    stats: ["React.js", "Next.js", "Tailwind CSS"],
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+    title: "Auditly360",
+    category: "AI Auditing Platform",
+    img: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop",
+    link: "https://auditly360.com"
   },
   {
-    city: "Smart Todo",
-    company: "Productivity",
-    tag: "NEW",
-    desc: "Created a task management dashboard with priority and due-date tracking.",
-    stats: ["Next.js", "TypeScript", "Responsive"],
-    img: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=800&auto=format&fit=crop"
+    title: "To-Do List",
+    category: "Productivity App",
+    img: "/converted_image.png",
+    link: "https://to-do-list-007-app.netlify.app/"
+  },
+  {
+    title: "EcoSphere",
+    category: "Sustainability Dashboard",
+    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+    link: "#"
+  },
+  {
+    title: "Vortex UI",
+    category: "Design System",
+    img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1200&auto=format&fit=crop",
+    link: "#"
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="portfolio" className="py-32 px-10 bg-black">
-      <div className="max-w-6xl mx-auto space-y-20">
-        <div className="text-center space-y-6">
-          <div className="inline-flex items-center gap-2 glass-card px-4 py-2 rounded-full">
-            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-            <span className="text-xs font-medium text-white/80">Results</span>
-          </div>
+    <section id="works" className="py-32 px-10 bg-black">
 
-          <h2 className="text-5xl md:text-7xl font-medium tracking-tight leading-tight text-white max-w-4xl mx-auto">
-            Delivering Tangible Results <br />
-            <span className="text-white/60 text-5xl md:text-6xl">That Propel Your Success</span>
+      <div className="max-w-7xl mx-auto space-y-24">
+        <div className="flex justify-between items-end">
+          <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-none text-white">
+            SELECTED <br />
+            <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.4)" }}>WORK</span>
           </h2>
-
-          <p className="text-lg text-muted-foreground font-light max-w-2xl mx-auto">
-             At the core of everything we do lies a commitment to delivering measurable outcomes that drive your success.
-          </p>
-
-          <button className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-opacity glow-blue">
-             Book a 15-min call
-          </button>
+          <div className="hidden md:flex items-center gap-4 text-[#CCFF00] font-black tracking-[0.2em] text-[12px] font-mono">
+            <div className="w-2 h-2 rounded-full bg-[#CCFF00] animate-pulse" />
+            LIVE WORK
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           {results.map((item, i) => (
-             <motion.div
-               key={i}
-               initial={{ opacity: 0, y: 30 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: i * 0.2 }}
-               className="group relative h-[500px] rounded-[2.5rem] overflow-hidden border border-white/5 bg-white/5"
-             >
-               <img 
-                 src={item.img} 
-                 alt={item.company} 
-                 className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-               
-               <div className="absolute bottom-6 left-6 right-6 p-6 glass-card rounded-3xl space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded bg-white/20 flex items-center justify-center">
-                       <CheckCircleIcon size={12} className="text-white" />
-                    </div>
-                    <span className="font-bold text-white text-lg">{item.city}</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-white/80">{item.company}</span>
-                    {item.tag && (
-                      <span className="bg-primary text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">{item.tag}</span>
-                    )}
-                  </div>
-
-                  <p className="text-xs text-muted-foreground font-light leading-relaxed">
-                    {item.desc}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                     {item.stats.map((stat, si) => (
-                       <span key={si} className="text-[10px] bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-white/60 font-medium">
-                          {stat}
-                       </span>
-                     ))}
-                  </div>
-               </div>
-             </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+           {selectedWorks.map((work, i) => (
+             <ProjectCard key={i} work={work} index={i} />
            ))}
         </div>
+
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="flex justify-center pt-20"
+        >
+          <button className="px-12 py-4 border border-white/10 text-white text-[12px] font-black uppercase tracking-[0.2em] transition-all hover:bg-white hover:text-black font-mono">
+            View All Projects
+          </button>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function CheckCircleIcon({ size = 16, className = "" }) {
+
+function ProjectCard({ work, index }: { work: any, index: number }) {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "end start"]
+  });
+
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+
   return (
-    <svg 
-      width={size} 
-      height={size} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="3" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
+    <motion.div
+      ref={container}
+      style={{ scale }}
+      className={`group relative overflow-hidden rounded-3xl bg-neutral-900 ${index % 3 === 2 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'}`}
     >
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
+      <a href={work.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
+        <img 
+          src={work.img} 
+          alt={work.title} 
+          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+        
+        <div className="absolute bottom-10 left-10 p-2 space-y-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+           <span className="text-[12px] font-black tracking-[0.1em] text-white/40 uppercase font-mono">{work.category}</span>
+           <h3 className="text-3xl font-bold tracking-tighter text-white uppercase">{work.title}</h3>
+        </div>
+
+        <div className="absolute top-10 right-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+           <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+           </svg>
+        </div>
+      </a>
+    </motion.div>
   );
 }

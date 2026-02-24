@@ -1,69 +1,71 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Star } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="about" className="py-32 px-10 bg-black relative">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <section className="py-32 px-10 bg-black relative">
+
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24">
+        {/* Image Side */}
         <motion.div
            initial={{ opacity: 0, scale: 0.9 }}
            whileInView={{ opacity: 1, scale: 1 }}
            viewport={{ once: true }}
-           className="relative"
+           className="relative group"
         >
-          <div className="aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 p-2 bg-white/5 mx-auto lg:mx-0 max-w-md">
+          <div className="relative w-full aspect-[4/5] md:w-[450px] overflow-hidden rounded-2xl grayscale hover:grayscale-0 transition-all duration-700">
              <img 
                src="/ganesh.png.png" 
                alt="Ganesh" 
-               className="w-full h-full object-cover rounded-[2.5rem] object-top"
+               className="w-full h-full object-cover"
              />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
-          {/* Decorative Circle */}
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
+          
+          {/* Decorative stats box */}
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-[#CCFF00] rounded-xl flex items-center justify-center p-4">
+            <svg viewBox="0 0 24 24" className="w-8 h-8 text-black fill-current translate-x-1 -translate-y-1">
+              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
         </motion.div>
 
+        {/* Content Side */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="space-y-8"
+          className="flex-1 space-y-10"
         >
-          <div className="inline-flex items-center gap-2 glass-card px-4 py-2 rounded-full">
-            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-            <span className="text-xs font-medium text-white/80">About Landin</span>
+          <div className="space-y-4">
+             <span className="text-[12px] font-black tracking-[0.15em] text-[#CCFF00] uppercase font-mono">OUR MISSION</span>
+             <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white flex flex-col uppercase">
+                <span>HUMAN-CENTRIC</span>
+                <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)" }}>DIGITAL CRAFT</span>
+             </h2>
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-medium tracking-tight leading-tight text-white">
-            Transforming Ideas <br />
-            <span className="text-white/60">Into Scalable Realities.</span>
-          </h2>
-
-          <p className="text-lg text-muted-foreground font-light leading-relaxed">
-            I am a Full Stack Developer specializing in AI-assisted development. With a strong foundation in Computer Science and hands-on experience in building scalable applications, I bridge the gap between complex backend logic and intuitive frontend design.
+          <p className="text-lg text-white/50 font-medium leading-relaxed max-w-xl">
+             Leading the way in crafting immersive products with artistic expression. We create products that are not only visualy stunning, but also highly functional and user-centric. Looking for a freelance partner to elevate your digital presence? You've come to the right place.
           </p>
 
-          <div className="space-y-4 pt-4">
-             {[
-               "Expertise in Python, JavaScript & TypeScript.",
-               "Building with React.js, Next.js & Node.js.",
-               "Modern database management with Supabase & MySQL."
-             ].map((text, i) => (
-               <div key={i} className="flex items-center gap-3">
-                 <CheckCircle2 className="text-primary w-5 h-5" />
-                 <span className="text-sm text-white/90">{text}</span>
-               </div>
-             ))}
+          <div className="grid grid-cols-2 gap-px bg-white/10 pt-10 mt-10">
+             <div className="bg-black py-10 pr-10 space-y-4">
+                <span className="text-[12px] font-black tracking-[0.2em] text-[#CCFF00] font-mono">01</span>
+                <h3 className="text-6xl font-black tracking-tighter text-white font-mono leading-none">2+</h3>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold font-mono">Years <br /> Experience</p>
+             </div>
+             <div className="bg-black py-10 pl-10 space-y-4">
+                <span className="text-[12px] font-black tracking-[0.2em] text-[#CCFF00] font-mono">02</span>
+                <h3 className="text-6xl font-black tracking-tighter text-white font-mono leading-none">12+</h3>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold font-mono">Selected <br /> Clients</p>
+             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-10 pt-6">
-             <button className="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-opacity glow-blue">
-                View About Landin
-             </button>
-          </div>
         </motion.div>
       </div>
     </section>
   );
 }
+

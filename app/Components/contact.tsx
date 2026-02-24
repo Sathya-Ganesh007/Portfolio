@@ -5,42 +5,49 @@ import { motion } from "framer-motion";
 export default function Contact() {
   return (
     <section id="contact" className="py-32 px-10 bg-black">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto relative rounded-[3rem] overflow-hidden p-12 md:p-24 text-center border border-white/5"
-      >
-        {/* Animated Background Gradients inside the card */}
-        <div className="absolute inset-0 -z-10">
-           <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-primary/30 via-transparent to-transparent opacity-50" />
-           <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tl from-primary/20 via-transparent to-transparent opacity-50" />
-           <div className="absolute inset-0 bg-black/40 backdrop-blur-3xl" />
-        </div>
-
-        <div className="relative z-10 space-y-8">
-          <div className="inline-flex items-center gap-2 glass-card px-4 py-2 rounded-full mx-auto">
-            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-            <span className="text-xs font-medium text-white/80">Join Us Now</span>
-          </div>
-
-          <h2 className="text-5xl md:text-7xl font-medium tracking-tight leading-tight text-white max-w-4xl mx-auto">
-            Each Project we Undertake <br />
-            <span className="text-white/60">is a Unique Opportunity.</span>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-6 max-w-xl"
+        >
+          <h2 className="text-7xl md:text-8xl font-black tracking-tighter leading-[0.9] text-white">
+            LET'S BUILD <br />
+            <span className="text-[#CCFF00]">THE FUTURE</span>
           </h2>
-
-          <p className="text-lg text-muted-foreground font-light max-w-xl mx-auto leading-relaxed">
-            Looking for a Full Stack Developer for your next AI-assisted project? Let's connect and build something extraordinary.
+          <p className="max-w-xs text-[12px] text-white/40 leading-relaxed font-medium uppercase tracking-[0.1em] font-mono">
+            Have a project in mind? We are currently accepting new clients for Q4 2026.
           </p>
+        </motion.div>
 
-          <div className="pt-6">
-            <button className="px-10 py-5 bg-primary text-white font-bold rounded-2xl hover:opacity-90 transition-all hover:scale-105 glow-blue text-lg">
-              Book an Appointment
-            </button>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="space-y-12 flex flex-col items-end w-full md:w-auto mt-10 md:mt-0"
+        >
+          <div className="relative group">
+            <a 
+              href="mailto:hello@aether.studio" 
+              className="text-4xl md:text-7xl font-bold tracking-tighter text-white transition-colors"
+            >
+              ganeshusuals@gmail.com
+            </a>
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20 origin-left scale-x-100 group-hover:scale-x-0 transition-transform duration-500" />
           </div>
-        </div>
-      </motion.div>
+
+          <div className="flex gap-12 text-[12px] font-black uppercase tracking-[0.2em] text-white/60 font-mono">
+             {["Instagram", "Twitter", "LinkedIn"].map((link) => (
+               <a key={link} href="#" className="hover:text-white transition-colors">
+                  {link}
+               </a>
+             ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
+
+
