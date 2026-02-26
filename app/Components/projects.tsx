@@ -17,6 +17,12 @@ const selectedWorks = [
     link: "https://to-do-list-007-app.netlify.app/"
   },
   {
+    title: "TitanFit",
+    category: "Fitness App",
+    img: "/TitanFit.png",
+    link: "https://fitness-page-taupe.vercel.app/"
+  },
+  {
     title: "EcoSphere",
     category: "Sustainability Dashboard",
     img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",

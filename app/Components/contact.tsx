@@ -29,7 +29,7 @@ export default function Contact() {
         >
           <div className="relative group">
             <a 
-              href="mailto:hello@aether.studio" 
+              href="mailto:ganeshusuals@gmail.com" 
               className="text-4xl md:text-7xl font-bold tracking-tighter text-white transition-colors"
             >
               ganeshusuals@gmail.com

@@ -11,7 +11,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 h-20 bg-black/50 backdrop-blur-xl border-b border-white/5"
     >
       <div className="flex items-center gap-2">
-        <span className="text-lg font-black tracking-tighter text-white font-mono">AETHER</span>
+        <span className="text-lg font-black tracking-tighter text-white font-mono">GANESH</span>
       </div>
 
       <div className="hidden md:flex items-center gap-10">
