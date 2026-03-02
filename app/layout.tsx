@@ -14,8 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AETHER STUDIO",
-  description: "Digital Alchemy Portfolio",
+  metadataBase: new URL("https://portfolio-woad-rho-d2b5fhr0ad.vercel.app"),
+  title: "Ganesh | AI-Powered Web Applications & Scalable Systems",
+  description: "AI-powered scalable systems | Full Stack Developer portfolio.",
+  openGraph: {
+    title: "Ganesh V Portfolio",
+    description:
+      "Explore AI-first scalable apps, backend systems & cloud projects.",
+    url: "https://portfolio-woad-rho-d2b5fhr0ad.vercel.app",
+    type: "website",
+    images: [
+      {
+        url: "https://portfolio-woad-rho-d2b5fhr0ad.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -34,4 +49,3 @@ export default function RootLayout({
     </html>
   );
 }
-
