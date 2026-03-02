@@ -17,7 +17,7 @@ export default function Hero() {
         >
           <div className="flex items-center gap-2 px-4 py-1.5 border border-white/5 bg-white/[0.03] backdrop-blur-md">
              <div className="w-1.5 h-1.5 rounded-full bg-[#CCFF00] animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 font-mono">Available for projects</span>
+             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60 font-mono">Available for AI & Scalable System Projects</span>
           </div>
         </motion.div>
 
@@ -28,12 +28,12 @@ export default function Hero() {
           className="space-y-8"
         >
           <h1 className="text-[12vw] md:text-[15rem] font-black tracking-tighter leading-[0.75] flex flex-col items-center select-none uppercase">
-            <span className="text-white">DIGITAL</span>
-            <span className="text-transparent" style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.1)" }}>ALCHEMY</span>
+            <span className="text-white">SOFTWARE</span>
+            <span className="text-transparent" style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.1)" }}>ENGINEER</span>
           </h1>
           
           <p className="max-w-lg mx-auto text-[14px] md:text-[16px] text-white/40 font-medium leading-relaxed font-mono uppercase tracking-widest pt-4">
-            We craft immersive digital experiences for forward-thinking brands.
+            Helping startups and businesses turn ideas into AI-powered, scalable backend architecture, and modern cloud-based applications.
           </p>
         </motion.div>
 
@@ -44,7 +44,10 @@ export default function Hero() {
           transition={{ delay: 0.2 }}
           className="flex flex-col items-center"
         >
-          <button className="group flex items-center gap-3 px-10 py-4 bg-white text-black text-[14px] font-bold uppercase tracking-[0.1em] transition-all hover:bg-[#CCFF00] font-mono">
+          <button
+            onClick={() => document.getElementById("works")?.scrollIntoView({ behavior: "smooth" })}
+            className="group flex items-center gap-3 px-10 py-4 bg-white text-black text-[14px] font-bold uppercase tracking-[0.1em] transition-all hover:bg-[#CCFF00] font-mono cursor-pointer"
+          >
             <span>View Selected Works</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
@@ -67,7 +70,7 @@ export default function Hero() {
             scale: [1, 1.05, 0.95, 1],
           }}
           transition={{ 
-            duration: 20, 
+            duration: 8, 
             repeat: Infinity, 
             ease: "linear" 
           }}
@@ -76,8 +79,8 @@ export default function Hero() {
 
       {/* Floating abstract elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-10">
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/5 rounded-full animate-[spin_20s_linear_infinite]" />
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/10 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/5 rounded-full animate-[spin_10s_linear_infinite]" />
+         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/10 rounded-full animate-[spin_8s_linear_infinite_reverse]" />
       </div>
 
 
