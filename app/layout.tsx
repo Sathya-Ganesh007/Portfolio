@@ -16,11 +16,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-woad-rho-d2b5fhr0ad.vercel.app"),
   title: "Ganesh | AI-Powered Web Applications & Scalable Systems",
-  description: "AI-powered scalable systems | Full Stack Developer portfolio.",
+  description:
+    "Explore my portfolio featuring AI-first scalable applications, high-performance backend systems, and modern cloud-based architectural solutions designed for impact.",
   openGraph: {
     title: "Ganesh V Portfolio",
     description:
-      "Explore AI-first scalable apps, backend systems & cloud projects.",
+      "Explore my portfolio featuring AI-first scalable applications, high-performance backend systems, and modern cloud-based architectural solutions designed for impact.",
     url: "https://portfolio-woad-rho-d2b5fhr0ad.vercel.app",
     type: "website",
     images: [
