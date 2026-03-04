@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 relative z-10">
           <div className="space-y-4">
             <p className="text-[12px] text-white/20 font-black uppercase tracking-[0.2em] font-mono">
-              © {new Date().getFullYear()} AETHER STUDIO / ALL RIGHTS RESERVED
+              © {new Date().getFullYear()} AETHER / ALL RIGHTS RESERVED
             </p>
           </div>
 
