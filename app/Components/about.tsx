@@ -36,9 +36,9 @@ export default function About() {
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="flex-1 space-y-8 lg:space-y-10 mt-10 sm:mt-8 lg:mt-0"
+          className="flex-1 space-y-10 lg:space-y-12 mt-10 sm:mt-8 lg:mt-0"
         >
-          <div className="space-y-3 sm:space-y-4">
+          <div className="space-y-5 sm:space-y-6">
              <span className="text-[11px] sm:text-[12px] font-black tracking-[0.15em] text-[#CCFF00] uppercase font-mono">MY MISSION</span>
              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[0.9] text-white flex flex-col uppercase">
                 <span>BUILDING INFRASTRUCTURE</span>
@@ -46,7 +46,7 @@ export default function About() {
              </h2>
           </div>
 
-          <p className="text-base sm:text-lg text-white/50 font-medium leading-relaxed max-w-xl">
+          <p className="text-base sm:text-lg text-white/50 font-medium leading-loose max-w-xl tracking-wide">
              I engineer AI-powered applications and cloud-native backend systems with scalable architecture, clean design, and production-grade reliability — transforming complex ideas into secure, high-performance software built for real-world scale.
           </p>
 
