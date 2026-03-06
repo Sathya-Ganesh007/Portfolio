@@ -17,7 +17,7 @@ export default function Contact() {
             <span className="text-[#CCFF00]">THE FUTURE</span>
           </h2>
           <p className="max-w-xs text-[12px] text-white/40 leading-relaxed font-medium uppercase tracking-[0.1em] font-mono">
-            Have a project in mind? We are currently accepting new clients for Q4 2026.
+            Have a project in mind? I am currently accepting new clients for Q4 2026.
           </p>
         </motion.div>
 
@@ -38,11 +38,22 @@ export default function Contact() {
           </div>
 
           <div className="flex gap-12 text-[12px] font-black uppercase tracking-[0.2em] text-white/60 font-mono">
-             {["Instagram", "Twitter", "LinkedIn"].map((link) => (
-               <a key={link} href="#" className="hover:text-white transition-colors">
-                  {link}
-               </a>
-             ))}
+            {[
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/ganesh-sathya2003/" },
+              { name: "Instagram", url: "https://www.instagram.com/sathya_ganesh07?igsh=ODNkYmlzMTgyNTNi" },
+              { name: "Threads", url: "https://www.threads.com/@sathya_ganesh07" },
+              { name: "GitHub", url: "https://github.com/Sathya-Ganesh007" },
+            ].map((link) => (
+              <a 
+                key={link.name} 
+                href={link.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
         </motion.div>
       </div>
