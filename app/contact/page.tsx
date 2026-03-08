@@ -33,10 +33,12 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg("");
     
     try {
       const res = await fetch("/api/contact", {
@@ -47,9 +49,13 @@ export default function ContactPage() {
 
       if (res.ok) {
         setIsSubmitted(true);
+      } else {
+        const data = await res.json();
+        setErrorMsg(data.error || "Failed to send transmission. Check inputs.");
       }
     } catch (err) {
       console.error(err);
+      setErrorMsg("Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -181,6 +187,16 @@ export default function ContactPage() {
                        onChange={(e) => setFormData({...formData, message: e.target.value})}
                      />
                   </div>
+
+                  {errorMsg && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-center border border-red-500/20 bg-red-500/5 p-4 rounded-xl"
+                    >
+                      {errorMsg}
+                    </motion.div>
+                  )}
 
                   <button 
                     disabled={isSubmitting}

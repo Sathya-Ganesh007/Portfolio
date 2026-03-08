@@ -2,10 +2,35 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Inquiry from "@/lib/models/Inquiry";
 import nodemailer from "nodemailer";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address").refine(email => {
+    const domain = email.split('@')[1];
+    if (!domain) return false;
+    const typos = ["gamil.com", "gmial.com", "gmai.com", "gmal.com", "gmaill.com", "yaho.com", "hotmal.com"];
+    return !typos.includes(domain.toLowerCase());
+  }, "Please double-check your email spelling (e.g., @gmail.com)"),
+  work: z.string(),
+  budget: z.string(),
+  message: z.string().min(1, "Message is required"),
+});
 
 export async function POST(req: Request) {
   try {
-    const { name, email, work, budget, message } = await req.json();
+    const body = await req.json();
+    
+    // Validate with Zod
+    const parsed = contactSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.errors[0].message }, 
+        { status: 400 }
+      );
+    }
+
+    const { name, email, work, budget, message } = parsed.data;
 
     // 1. Connection with MongoDB
     await connectToDatabase();
