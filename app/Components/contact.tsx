@@ -17,7 +17,7 @@ export default function Contact() {
             <span className="text-[#CCFF00]">THE FUTURE</span>
           </h2>
           <p className="max-w-xs text-[12px] text-white/40 leading-relaxed font-medium uppercase tracking-[0.1em] font-mono">
-            Have a project in mind? We are currently accepting new clients for Q4 2026.
+            Have a project in mind? I'm currently accepting new clients for Q4 2026.
           </p>
         </motion.div>
 

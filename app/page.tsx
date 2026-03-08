@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/Components/navbar";
 import Hero from "@/Components/hero";
 import About from "@/Components/about";
@@ -5,18 +9,34 @@ import Expertise from "@/Components/expertise";
 import Projects from "@/Components/projects";
 import Contact from "@/Components/contact";
 import Footer from "@/Components/footer";
+import IndianGreeting from "@/Components/IndianGreeting";
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <About />
-      <Expertise />
-      <Projects />
-      <Contact />
-      <Footer />
-    </>
+    <main className="relative min-h-screen bg-black">
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <IndianGreeting key="loader" onComplete={() => setIsLoading(false)} />
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <Navbar />
+            <Hero />
+            <About />
+            <Expertise />
+            <Projects />
+            <Contact />
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
 

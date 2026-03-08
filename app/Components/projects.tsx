@@ -2,6 +2,13 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
 
 const selectedWorks = [
   {
@@ -74,39 +81,60 @@ export default function Projects() {
 }
 
 
-function ProjectCard({ work, index }: { work: any, index: number }) {
+function ProjectCard({ work, index }: { work: any; index: number }) {
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
     <motion.div
       ref={container}
-      style={{ scale }}
-      className={`group relative overflow-hidden rounded-3xl bg-neutral-900 ${index % 3 === 2 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-square'}`}
+      style={{ scale, opacity }}
+      className={`group relative ${
+        index % 3 === 2 ? "md:col-span-2" : ""
+      }`}
     >
-      <a href={work.link} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-        <img 
-          src={work.img} 
-          alt={work.title} 
-          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-        
-        <div className="absolute bottom-10 left-10 p-2 space-y-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-           <span className="text-[12px] font-black tracking-[0.1em] text-white/40 uppercase font-mono">{work.category}</span>
-           <h3 className="text-3xl font-bold tracking-tighter text-white uppercase">{work.title}</h3>
-        </div>
+      <a href={work.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+        <Card className="relative overflow-hidden border-white/5 bg-neutral-900/50 backdrop-blur-sm transition-all duration-500 hover:border-[#CCFF00]/30 hover:shadow-[0_0_30px_rgba(204,255,0,0.05)] rounded-3xl h-full border-0">
+          <div className="relative aspect-[16/10] overflow-hidden">
+            <motion.img
+              src={work.img}
+              alt={work.title}
+              className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            
+            {/* Hover arrow indicator */}
+            <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-500">
+               <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-none stroke-current" strokeWidth="2.5">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" strokeLinecap="round" strokeLinejoin="round" />
+               </svg>
+            </div>
+          </div>
 
-        <div className="absolute top-10 right-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-           <svg viewBox="0 0 24 24" className="w-5 h-5 text-white fill-current">
-              <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-           </svg>
-        </div>
+          <CardHeader className="p-8 relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#CCFF00]" />
+              <CardDescription className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 font-mono">
+                {work.category}
+              </CardDescription>
+            </div>
+            <CardTitle className="text-3xl md:text-4xl font-black text-white tracking-tighter uppercase italic">
+              {work.title}
+            </CardTitle>
+          </CardHeader>
+          
+          <CardContent className="px-8 pb-8 pt-0 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-y-0 translate-y-4">
+             <p className="text-xs text-white/40 font-mono uppercase tracking-widest leading-relaxed">
+               View project details and technical implementation.
+             </p>
+          </CardContent>
+        </Card>
       </a>
     </motion.div>
   );
