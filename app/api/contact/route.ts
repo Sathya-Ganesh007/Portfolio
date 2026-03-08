@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const parsed = contactSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: (parsed.error as z.ZodError).errors[0].message }, 
+        { error: parsed.error.issues[0].message }, 
         { status: 400 }
       );
     }
