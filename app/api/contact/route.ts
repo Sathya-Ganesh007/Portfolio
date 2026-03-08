@@ -105,7 +105,15 @@ export async function POST(req: Request) {
         });
 
         // Execute both email operations concurrently to reduce API response time
-        await Promise.allSettled([notifyPromise, confirmPromise]);
+        const emailResults = await Promise.allSettled([notifyPromise, confirmPromise]);
+        
+        emailResults.forEach((result, index) => {
+          if (result.status === "rejected") {
+            const emailType = index === 0 ? "Notification to Ganesh" : "Confirmation to Client";
+            console.error(`Nodemailer failed for ${emailType}:`, result.reason);
+          }
+        });
+
       } catch (emailError) {
         console.error("Nodemailer automation failed but record was saved:", emailError);
       }
