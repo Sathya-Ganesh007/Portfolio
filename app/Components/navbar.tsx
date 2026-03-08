@@ -27,12 +27,12 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <a 
-          href="mailto:ganeshusuals@gmail.com"
+        <Link 
+          href="/contact"
           className="px-4 py-2 border border-white/20 text-white text-[10px] sm:text-[12px] font-medium uppercase tracking-[0.1em] transition-all hover:bg-white hover:text-black font-mono"
         >
           Let&apos;s Talk
-        </a>
+        </Link>
       </div>
     </motion.nav>
   );
