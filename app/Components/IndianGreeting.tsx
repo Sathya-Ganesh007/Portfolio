@@ -34,9 +34,27 @@ const devMessages = [
 export default function IndianGreeting({ onComplete }: { onComplete: () => void }) {
   const [index, setIndex] = useState(0);
   const [devIndex, setDevIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const [particles, setParticles] = useState<any[]>([]);
 
   useEffect(() => {
-    if (index === greetings.length - 1) {
+    setIsMounted(true);
+    // Generate particles only on the client
+    const newParticles = Array.from({ length: 20 }).map(() => ({
+      x: Math.random() * 100 + "%",
+      duration: Math.random() * 2 + 2,
+      delay: Math.random() * 2,
+      binary: Math.random() > 0.5 ? "01" : "10",
+      hex: Math.random().toString(16).slice(2, 8)
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    // Reset loop if something went wrong, or ensure it only starts once
+    if (index >= greetings.length - 1) {
       const timer = setTimeout(() => {
         onComplete();
       }, 1000);
@@ -44,12 +62,14 @@ export default function IndianGreeting({ onComplete }: { onComplete: () => void 
     }
 
     const timer = setTimeout(() => {
-      setIndex(index + 1);
-      if (index % 2 === 0) setDevIndex(prev => (prev + 1) % devMessages.length);
-    }, 150);
+      setIndex((prev) => (prev + 1));
+      if (index % 2 === 0) setDevIndex((prev) => (prev + 1) % devMessages.length);
+    }, 180); // Slightly slower for better readability on refresh
 
     return () => clearTimeout(timer);
-  }, [index, onComplete]);
+  }, [index, onComplete, isMounted]);
+
+  if (!isMounted) return <div className="fixed inset-0 bg-black z-[100]" />;
 
   return (
     <motion.div
@@ -64,21 +84,21 @@ export default function IndianGreeting({ onComplete }: { onComplete: () => void 
     >
       {/* Matrix-like falling code bits in background */}
       <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {particles.map((p, i) => (
           <motion.div
             key={i}
-            initial={{ y: -100, x: Math.random() * 100 + "%" }}
+            initial={{ y: -100, x: p.x }}
             animate={{ y: "110vh" }}
             transition={{ 
-              duration: Math.random() * 2 + 2, 
+              duration: p.duration, 
               repeat: Infinity, 
               ease: "linear",
-              delay: Math.random() * 2
+              delay: p.delay
             }}
             className="absolute text-[10px] text-[#CCFF00]"
           >
-            {Math.random() > 0.5 ? "01" : "10"}<br/>
-            {Math.random().toString(16).slice(2, 8)}<br/>
+            {p.binary}<br/>
+            {p.hex}<br/>
             {"{...}"}
           </motion.div>
         ))}
@@ -114,7 +134,7 @@ export default function IndianGreeting({ onComplete }: { onComplete: () => void 
                   <p>{`> SYNCING_REPOS...`}</p>
                   <p>{`> FETCHING_DATA...`}</p>
                   <p>{`> PORT: 3000`}</p>
-                  <p>{`> LOG: ${Math.random().toString(16).slice(2, 8)}`}</p>
+                  <p>{`> LOG: 0x${(index + 100).toString(16)}`}</p>
                 </motion.div>
               </div>
               <div className="absolute inset-0 shadow-[inset_0_0_10px_rgba(204,255,0,0.1)] pointer-events-none" />
