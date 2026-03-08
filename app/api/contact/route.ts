@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         });
 
         // Notify you (Ganesh)
-        await transporter.sendMail({
+        const notifyPromise = transporter.sendMail({
           from: `"Portfolio Alerts" <${process.env.EMAIL_USER}>`,
           to: 'ganeshusuals@gmail.com', // Sending to yourself
           subject: `🚀 新しいリード: ${name} | ${work}`, // Adding a cool aesthetic subject
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         });
 
         // Send confirmation to Client (Cool Sentence)
-        await transporter.sendMail({
+        const confirmPromise = transporter.sendMail({
           from: `"Ganesh Sathya" <${process.env.EMAIL_USER}>`,
           to: email, // Sending to the client who filled the form
           subject: `AETHER System: Connection Confirmed / ${work}`,
@@ -78,6 +78,9 @@ export async function POST(req: Request) {
             </div>
           `,
         });
+
+        // Execute both email operations concurrently to reduce API response time
+        await Promise.allSettled([notifyPromise, confirmPromise]);
       } catch (emailError) {
         console.error("Nodemailer automation failed but record was saved:", emailError);
       }
