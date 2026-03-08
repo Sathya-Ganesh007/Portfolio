@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Inquiry from "@/lib/models/Inquiry";
-import { Resend } from 'resend';
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
@@ -14,43 +14,75 @@ export async function POST(req: Request) {
     const newInquiry = new Inquiry({ name, email, work, budget, message });
     await newInquiry.save();
 
-    // 3. Automation for Email notification using Resend (SKIPPED IF NO KEY)
-    const resendKey = process.env.RESEND_API_KEY;
-    if (resendKey && resendKey !== "re_your_api_key_here") {
+    // 3. Automation for Email notification using Nodemailer (Gmail SMTP)
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       try {
-        const resend = new Resend(resendKey);
-        
-        // Notify you
-        await resend.emails.send({
-          from: 'Portfolio Inquiry <onboarding@resend.dev>',
-          to: 'ganeshusuals@gmail.com',
-          subject: `New Project Inquiry from ${name}`,
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+
+        // Notify you (Ganesh)
+        await transporter.sendMail({
+          from: `"Portfolio Alerts" <${process.env.EMAIL_USER}>`,
+          to: 'ganeshusuals@gmail.com', // Sending to yourself
+          subject: `🚀 新しいリード: ${name} | ${work}`, // Adding a cool aesthetic subject
           html: `
-            <h1>New Lead: ${work}</h1>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Budget:</strong> ${budget || 'Not specified'}</p>
-            <p><strong>Message:</strong> ${message}</p>
+            <div style="font-family: 'JetBrains Mono', monospace; background: #000; color: #fff; padding: 40px; border: 1px solid #ccff00;">
+              <h1 style="color: #ccff00; font-size: 24px; text-transform: uppercase; letter-spacing: 4px; font-weight: 900;">Incoming Transmission</h1>
+              <div style="height: 2px; background: #ccff00; width: 60px; margin-bottom: 30px;"></div>
+              
+              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">SOURCE:</strong> ${name}</p>
+              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">OBJECTIVE:</strong> ${work}</p>
+              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">CAPEX:</strong> ${budget || 'UNDETERMINED'}</p>
+              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">CHANNEL:</strong> ${email}</p>
+              
+              <div style="margin-top: 30px; background: #111; padding: 25px; border: 1px solid #333; line-height: 1.8; color: #aaa;">
+                <p style="margin: 0;">${message}</p>
+              </div>
+              
+              <p style="margin-top: 40px; color: #444; font-size: 10px; font-family: sans-serif;">SYSTEM_PRIORITY_HIGH // SESSION_ID: ${Date.now().toString(16)}</p>
+            </div>
           `,
         });
 
-        // Send confirmation to User
-        await resend.emails.send({
-          from: 'Ganesh <onboarding@resend.dev>',
-          to: email,
-          subject: `Confirming your inquiry / Ganesh`,
+        // Send confirmation to Client (Cool Sentence)
+        await transporter.sendMail({
+          from: `"Ganesh Sathya" <${process.env.EMAIL_USER}>`,
+          to: email, // Sending to the client who filled the form
+          subject: `AETHER System: Connection Confirmed / ${work}`,
           html: `
-            <h2>Hey ${name},</h2>
-            <p>Got your inquiry regarding <strong>${work}</strong>.</p>
-            <p>I'll be reaching out to you personally within <strong>24 hours</strong> via mail or text to discuss how we build the future together.</p>
-            <br/>
-            <p>Best Regards,</p>
-            <p>Ganesh / Software Engineer</p>
+            <div style="font-family: sans-serif; background: #000; color: #fff; padding: 50px; border-top: 4px solid #ccff00; max-width: 600px;">
+              <h2 style="font-size: 28px; font-weight: 900; letter-spacing: -0.05em; margin-bottom: 24px; text-transform: uppercase;">CONNECTION ESTABLISHED.</h2>
+              <p style="color: #888; line-height: 1.8; font-size: 16px; margin-bottom: 30px;">
+                Hello ${name}, I've successfully received your brief regarding <strong>${work}</strong>. 
+                Our connection is now active.
+              </p>
+              
+              <div style="background: rgba(204, 255, 0, 0.05); border: 1px solid rgba(204, 255, 0, 0.2); padding: 30px; border-radius: 4px; margin-bottom: 40px;">
+                <p style="color: #ccff00; font-weight: bold; font-size: 18px; margin: 0; line-height: 1.4;">
+                "Your objective is being analyzed. Expect my direct communication within the next 24 hours to discuss the architecture for your ${work} project."
+                </p>
+              </div>
+              
+              <p style="color: #666; font-size: 14px; margin-bottom: 50px;">
+                Talk soon,<br/>
+                <strong style="color: #fff; font-size: 18px;">Ganesh / AI & Systems Engineer</strong>
+              </p>
+              
+              <div style="height: 1px; background: #222; margin-bottom: 20px;"></div>
+              <p style="color: #333; font-size: 9px; text-transform: uppercase; letter-spacing: 2px;">SECURE TRANSMISSION // ENGINEER_AUTO_REPLY</p>
+            </div>
           `,
         });
       } catch (emailError) {
-        console.error("Email automation failed but record was saved:", emailError);
+        console.error("Nodemailer automation failed but record was saved:", emailError);
       }
+    } else {
+       console.log("Nodemailer credentials not found in env. Skipping email notification.");
     }
 
     return NextResponse.json({ message: "Inquiry saved successfully" }, { status: 201 });

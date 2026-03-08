@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/Components/navbar";
 import Hero from "@/Components/hero";
@@ -13,12 +13,31 @@ import IndianGreeting from "@/Components/IndianGreeting";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    // Skip loader if the user has already visited in this session
+    if (sessionStorage.getItem("hasSeenGreeting")) {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleGreetingComplete = () => {
+    sessionStorage.setItem("hasSeenGreeting", "true");
+    setIsLoading(false);
+  };
+
+  if (!isMounted) {
+    // Prevents hydration mismatch and flashes a smooth black background while mounting
+    return <main className="relative min-h-screen bg-black"></main>;
+  }
 
   return (
     <main className="relative min-h-screen bg-black">
       <AnimatePresence mode="wait">
         {isLoading ? (
-          <IndianGreeting key="loader" onComplete={() => setIsLoading(false)} />
+          <IndianGreeting key="loader" onComplete={handleGreetingComplete} />
         ) : (
           <motion.div
             key="content"

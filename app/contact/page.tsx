@@ -117,13 +117,13 @@ export default function ContactPage() {
                   exit={{ opacity: 0, y: -20 }}
                   className="space-y-8 p-8 md:p-12 border border-white/5 bg-white/[0.02] backdrop-blur-xl rounded-3xl"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 font-mono ml-1">Name</label>
                       <input 
                         required
                         placeholder="John Doe"
-                        className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#CCFF00] transition-colors font-mono text-sm"
+                        className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#CCFF00] transition-all font-mono text-sm placeholder:text-white/20"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
@@ -134,7 +134,7 @@ export default function ContactPage() {
                          required
                          type="email"
                          placeholder="hello@world.com"
-                         className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#CCFF00] transition-colors font-mono text-sm"
+                         className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#CCFF00] transition-all font-mono text-sm placeholder:text-white/20"
                          value={formData.email}
                          onChange={(e) => setFormData({...formData, email: e.target.value})}
                        />
@@ -186,7 +186,7 @@ export default function ContactPage() {
                     disabled={isSubmitting}
                     className="w-full group relative overflow-hidden bg-white text-black py-5 uppercase font-black tracking-[0.2em] text-xs transition-colors hover:bg-[#CCFF00] flex justify-center items-center gap-3 disabled:opacity-50"
                   >
-                    <span>{isSubmitting ? "Syncing Server..." : "Establish Connection"}</span>
+                    <span>{isSubmitting ? "CONFIRMING CLIENT..." : "INITIATE TRANSMISSION"}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 </motion.form>
@@ -206,7 +206,7 @@ export default function ContactPage() {
                   </p>
                   <Link 
                     href="/" 
-                    className="px-8 py-3 bg-white text-black text-xs font-black uppercase tracking-[0.2em] hover:bg-[#CCFF00] transition-colors"
+                    className="px-8 py-3 bg-white text-black text-xs font-black uppercase tracking-[0.2em] hover:bg-[#CCFF00] transition-colors inline-block"
                   >
                     Return Home
                   </Link>
