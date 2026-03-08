@@ -14,7 +14,7 @@ const selectedWorks = [
   {
     title: "Auditly360",
     category: "AI Auditing Platform",
-    img: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop",
+    img: "/website_hero_section.png",
     link: "https://auditly360.com"
   },
   {
