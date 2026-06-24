@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import connectToDatabase from "@/lib/mongodb";
-import Inquiry from "@/lib/models/Inquiry";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address").refine(email => {
-    const domain = email.split('@')[1];
+  email: z.string().email("Invalid email address").refine((email) => {
+    const domain = email.split("@")[1];
     if (!domain) return false;
     const typos = ["gamil.com", "gmial.com", "gmai.com", "gmal.com", "gmaill.com", "yaho.com", "hotmal.com"];
     return !typos.includes(domain.toLowerCase());
@@ -20,108 +18,126 @@ const contactSchema = z.object({
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    
-    // Validate with Zod
+
     const parsed = contactSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: parsed.error.issues[0].message }, 
+        { error: parsed.error.issues[0].message },
         { status: 400 }
       );
     }
 
     const { name, email, work, budget, message } = parsed.data;
 
-    // 1. Connection with MongoDB
-    await connectToDatabase();
+    // Send Discord webhook notification
+    if (process.env.DISCORD_WEBHOOK_URL) {
+      try {
+        await fetch(process.env.DISCORD_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: "Portfolio Bot",
+            embeds: [
+              {
+                title: "🔔 New Portfolio Contact!",
+                color: 5763719,
+                fields: [
+                  { name: "👤 Name", value: name, inline: true },
+                  { name: "📧 Email", value: email, inline: true },
+                  { name: "🛠 Project Type", value: work, inline: false },
+                  { name: "💰 Budget", value: budget, inline: true },
+                  { name: "💬 Message", value: message, inline: false },
+                ],
+              },
+            ],
+          }),
+        });
+      } catch (discordError) {
+        console.error("Discord webhook failed, but inquiry was saved:", discordError);
+      }
+    } else {
+      console.log("DISCORD_WEBHOOK_URL not set — skipping Discord notification.");
+    }
 
-    // 2. Database for Record persistence
-    const newInquiry = new Inquiry({ name, email, work, budget, message });
-    await newInquiry.save();
-
-    // 3. Automation for Email notification using Nodemailer (Gmail SMTP)
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    // Send email notification
+    if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
       try {
         const transporter = nodemailer.createTransport({
-          service: 'gmail',
+          service: "gmail",
           auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASSWORD,
           },
         });
 
-        // Notify you (Ganesh)
         const notifyPromise = transporter.sendMail({
-          from: `"Portfolio Alerts" <${process.env.EMAIL_USER}>`,
-          to: 'ganeshusuals@gmail.com', // Sending to yourself
-          subject: `🚀 新しいリード: ${name} | ${work}`, // Adding a cool aesthetic subject
-          html: `
-            <div style="font-family: 'JetBrains Mono', monospace; background: #000; color: #fff; padding: 40px; border: 1px solid #ccff00;">
-              <h1 style="color: #ccff00; font-size: 24px; text-transform: uppercase; letter-spacing: 4px; font-weight: 900;">Incoming Transmission</h1>
-              <div style="height: 2px; background: #ccff00; width: 60px; margin-bottom: 30px;"></div>
-              
-              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">SOURCE:</strong> ${name}</p>
-              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">OBJECTIVE:</strong> ${work}</p>
-              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">CAPEX:</strong> ${budget || 'UNDETERMINED'}</p>
-              <p style="font-size: 14px; margin-bottom: 8px;"><strong style="color: #ccff00;">CHANNEL:</strong> ${email}</p>
-              
-              <div style="margin-top: 30px; background: #111; padding: 25px; border: 1px solid #333; line-height: 1.8; color: #aaa;">
-                <p style="margin: 0;">${message}</p>
-              </div>
-              
-              <p style="margin-top: 40px; color: #444; font-size: 10px; font-family: sans-serif;">SYSTEM_PRIORITY_HIGH // SESSION_ID: ${Date.now().toString(16)}</p>
-            </div>
-          `,
+          from: `"Portfolio Alerts" <${process.env.GMAIL_USER}>`,
+          to: "ganeshveleappa@gmail.com",
+          subject: `🔔 New Portfolio Contact - ${name}`,
+          html: `<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#0a0a0a;font-family:'Arial',sans-serif;">
+  <div style="max-width:600px;margin:40px auto;background:#111;border:1px solid #222;border-radius:12px;overflow:hidden;">
+    <div style="background:#c8ff00;padding:24px 32px;">
+      <h1 style="margin:0;color:#000;font-size:22px;font-weight:900;letter-spacing:2px;">🔔 NEW PORTFOLIO CONTACT</h1>
+    </div>
+    <div style="padding:32px;">
+      <table style="width:100%;border-collapse:collapse;">
+        <tr><td style="padding:12px 0;border-bottom:1px solid #222;color:#888;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Name</td><td style="padding:12px 0;border-bottom:1px solid #222;color:#fff;font-weight:bold;">${name}</td></tr>
+        <tr><td style="padding:12px 0;border-bottom:1px solid #222;color:#888;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Email</td><td style="padding:12px 0;border-bottom:1px solid #222;color:#c8ff00;">${email}</td></tr>
+        <tr><td style="padding:12px 0;border-bottom:1px solid #222;color:#888;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Project</td><td style="padding:12px 0;border-bottom:1px solid #222;color:#fff;">${work}</td></tr>
+        <tr><td style="padding:12px 0;border-bottom:1px solid #222;color:#888;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Budget</td><td style="padding:12px 0;border-bottom:1px solid #222;color:#c8ff00;font-weight:bold;">${budget}</td></tr>
+        <tr><td style="padding:12px 0;color:#888;font-size:11px;letter-spacing:1px;text-transform:uppercase;vertical-align:top;">Message</td><td style="padding:12px 0;color:#fff;line-height:1.6;">${message}</td></tr>
+      </table>
+    </div>
+    <div style="background:#0a0a0a;padding:16px 32px;text-align:center;">
+      <p style="margin:0;color:#444;font-size:11px;letter-spacing:1px;">GANESH V — PORTFOLIO ALERT SYSTEM</p>
+    </div>
+  </div>
+</body>
+</html>`,
         });
 
-        // Send confirmation to Client (Cool Sentence)
         const confirmPromise = transporter.sendMail({
-          from: `"Ganesh Sathya" <${process.env.EMAIL_USER}>`,
-          to: email, // Sending to the client who filled the form
+          from: `"Ganesh Sathya" <${process.env.GMAIL_USER}>`,
+          to: email,
           subject: `AETHER System: Connection Confirmed / ${work}`,
           html: `
             <div style="font-family: sans-serif; background: #000; color: #fff; padding: 50px; border-top: 4px solid #ccff00; max-width: 600px;">
               <h2 style="font-size: 28px; font-weight: 900; letter-spacing: -0.05em; margin-bottom: 24px; text-transform: uppercase;">CONNECTION ESTABLISHED.</h2>
               <p style="color: #888; line-height: 1.8; font-size: 16px; margin-bottom: 30px;">
-                Hello ${name}, I've successfully received your brief regarding <strong>${work}</strong>. 
+                Hello ${name}, I've successfully received your brief regarding <strong>${work}</strong>.
                 Our connection is now active.
               </p>
-              
               <div style="background: rgba(204, 255, 0, 0.05); border: 1px solid rgba(204, 255, 0, 0.2); padding: 30px; border-radius: 4px; margin-bottom: 40px;">
                 <p style="color: #ccff00; font-weight: bold; font-size: 18px; margin: 0; line-height: 1.4;">
-                "Your objective is being analyzed. Expect my direct communication within the next 24 hours to discuss the architecture for your ${work} project."
+                  "Your objective is being analyzed. Expect my direct communication within the next 24 hours to discuss the architecture for your ${work} project."
                 </p>
               </div>
-              
               <p style="color: #666; font-size: 14px; margin-bottom: 50px;">
                 Talk soon,<br/>
                 <strong style="color: #fff; font-size: 18px;">Ganesh / AI & Systems Engineer</strong>
               </p>
-              
               <div style="height: 1px; background: #222; margin-bottom: 20px;"></div>
               <p style="color: #333; font-size: 9px; text-transform: uppercase; letter-spacing: 2px;">SECURE TRANSMISSION // ENGINEER_AUTO_REPLY</p>
             </div>
           `,
         });
 
-        // Execute both email operations concurrently to reduce API response time
-        const emailResults = await Promise.allSettled([notifyPromise, confirmPromise]);
-        
-        emailResults.forEach((result, index) => {
+        const results = await Promise.allSettled([notifyPromise, confirmPromise]);
+        results.forEach((result, i) => {
           if (result.status === "rejected") {
-            const emailType = index === 0 ? "Notification to Ganesh" : "Confirmation to Client";
-            console.error(`Nodemailer failed for ${emailType}:`, result.reason);
+            console.error(`Email send failed [${i === 0 ? "notify" : "confirm"}]:`, result.reason);
           }
         });
-
       } catch (emailError) {
-        console.error("Nodemailer automation failed but record was saved:", emailError);
+        console.error("Nodemailer failed, but inquiry was saved:", emailError);
       }
     } else {
-       console.log("Nodemailer credentials not found in env. Skipping email notification.");
+      console.log("GMAIL_USER / GMAIL_APP_PASSWORD not set — skipping email.");
     }
 
-    return NextResponse.json({ message: "Inquiry saved successfully" }, { status: 201 });
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error: any) {
     console.error("API Error:", error);
     return NextResponse.json({ error: "Failed to process inquiry" }, { status: 500 });

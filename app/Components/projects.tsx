@@ -12,22 +12,22 @@ import {
 
 const selectedWorks = [
   {
+    title: "Job Management Platform",
+    category: "Field Service Management",
+    img: "/job_management_software.png",
+    link: "https://jmf.tradebusinessschool.com/login"
+  },
+  {
     title: "Auditly360",
     category: "AI Auditing Platform",
-    img: "/website_hero_section.png",
-    link: "https://auditly360.com"
+    img: "/auditly360.png",
+    link: "https://web-crawler-gamma.vercel.app/"
   },
   {
-    title: "To-Do List",
-    category: "Productivity App",
-    img: "/converted_image.png",
-    link: "https://to-do-list-007-app.netlify.app/"
-  },
-  {
-    title: "TitanFit",
-    category: "Fitness App",
-    img: "/TitanFit.png",
-    link: "https://fitness-page-taupe.vercel.app/"
+    title: "Final Year Project",
+    category: "Academic Project",
+    img: "/web_crawler_software.png",
+    link: "https://final-year-project-yn7m-mzkszfkqr-sathya-ganesh007s-projects.vercel.app/dashboard"
   }
 ];
 
