@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.05)_0%,_transparent_50%)]" />
       
-      <div className="max-w-6xl w-full mx-auto text-center space-y-10 relative z-10">
+      <div className="max-w-7xl w-full mx-auto text-center space-y-10 relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -27,9 +27,9 @@ export default function Hero() {
            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
            className="space-y-6 sm:space-y-8"
         >
-          <h1 className="text-[14vw] sm:text-[12vw] md:text-[15rem] font-black tracking-tighter leading-[0.8] flex flex-col items-center select-none uppercase">
+          <h1 className="text-[14vw] sm:text-[12vw] md:text-[14vw] lg:text-[15vw] xl:text-[16vw] 2xl:text-[17vw] font-black tracking-tighter leading-[0.8] flex flex-col items-center select-none uppercase">
             <span className="text-white">SOFTWARE</span>
-            <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.1)" }}>ENGINEER</span>
+            <span className="text-transparent" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}>DEVELOPER</span>
           </h1>
           
           <p className="max-w-xs sm:max-w-md md:max-w-lg mx-auto text-[11px] sm:text-[14px] md:text-[16px] text-white/40 font-medium leading-relaxed font-mono uppercase tracking-widest pt-2 sm:pt-4">

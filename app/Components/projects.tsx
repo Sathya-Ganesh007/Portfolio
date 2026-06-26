@@ -93,9 +93,9 @@ function ProjectCard({ work, index }: { work: any; index: number }) {
             <motion.img
               src={work.img}
               alt={work.title}
-              className="absolute inset-0 w-full h-full object-cover grayscale opacity-50 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-100"
+              className="absolute inset-0 w-full h-full object-cover opacity-90 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             
             {/* Hover arrow indicator */}
             <div className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-xl border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-500">
@@ -108,17 +108,17 @@ function ProjectCard({ work, index }: { work: any; index: number }) {
           <CardHeader className="p-8 relative z-10 transition-transform duration-500 group-hover:-translate-y-2">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-1.5 h-1.5 rounded-full bg-[#CCFF00]" />
-              <CardDescription className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 font-mono">
+              <CardDescription className="text-[10px] font-black uppercase tracking-[0.3em] text-white/70 font-mono">
                 {work.category}
               </CardDescription>
             </div>
-            <CardTitle className="text-3xl md:text-4xl font-black text-white tracking-tighter uppercase italic">
+            <CardTitle className="text-3xl md:text-4xl font-black text-white tracking-tighter uppercase">
               {work.title}
             </CardTitle>
           </CardHeader>
           
           <CardContent className="px-8 pb-8 pt-0 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:translate-y-0 translate-y-4">
-             <p className="text-xs text-white/40 font-mono uppercase tracking-widest leading-relaxed">
+             <p className="text-xs text-white/80 font-mono uppercase tracking-widest leading-relaxed">
                View project details and technical implementation.
              </p>
           </CardContent>
