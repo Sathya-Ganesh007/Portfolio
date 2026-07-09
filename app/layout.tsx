@@ -19,22 +19,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-woad-rho-d2b5fhr0ad.vercel.app"),
-  title: "Ganesh | AI-Powered Web Applications & Scalable Systems",
+  title: "Ganesh | Software Developer",
   description:
-    "Explore my portfolio featuring AI-first scalable applications, high-performance backend systems, and modern cloud-based architectural solutions designed for impact.",
+    "Helping startups and businesses turn ideas into AI-powered, scalable backend architecture and modern cloud-based applications.",
   openGraph: {
-    title: "Ganesh V Portfolio",
+    title: "Ganesh | Software Developer",
     description:
-      "Explore my portfolio featuring AI-first scalable applications, high-performance backend systems, and modern cloud-based architectural solutions designed for impact.",
+      "Helping startups and businesses turn ideas into AI-powered, scalable backend architecture and modern cloud-based applications.",
     url: "https://portfolio-woad-rho-d2b5fhr0ad.vercel.app",
     type: "website",
     images: [
       {
-        url: "https://portfolio-woad-rho-d2b5fhr0ad.vercel.app/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
+        alt: "Ganesh | Software Developer",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ganesh | Software Developer",
+    description:
+      "Helping startups and businesses turn ideas into AI-powered, scalable backend architecture and modern cloud-based applications.",
+    images: ["/og-image.png"],
   },
 };
 
