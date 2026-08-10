@@ -24,10 +24,10 @@ const selectedWorks = [
     link: "https://web-crawler-gamma.vercel.app/"
   },
   {
-    title: "Final Year Project",
-    category: "Academic Project",
-    img: "/web_crawler_software.png",
-    link: "https://final-year-project-yn7m-mzkszfkqr-sathya-ganesh007s-projects.vercel.app/dashboard"
+    title: "Ractrotech",
+    category: "Digital Agency",
+    img: "/ractrotech-website.png",
+    link: "https://www.ractrotech.com/"
   }
 ];
 
